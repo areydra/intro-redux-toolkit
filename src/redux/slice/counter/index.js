@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchCount } from './counterAPI';
+import { fetchCount } from '../../../api/CounterAPI';
 
 const initialState = {
   value: 0,
@@ -49,6 +49,10 @@ export const counterSlice = createSlice({
       })
       .addCase(incrementAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.value += action.payload;
+      })
+      .addCase(incrementAsync.rejected, (state, action) => {
+        state.status = 'error';
         state.value += action.payload;
       });
   },
